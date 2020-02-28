@@ -4,16 +4,24 @@ import {
   Route,
   Switch
 } from 'react-router-dom';
-
+//import routes
 import Header from './components/Header';
+import CourseIndex from './components/CourseIndex';
+import withContext from './Context';
+
+
+//context variables
+const HeaderWithContext = withContext(Header);
+
 
 export default () => (
   <Router>
     <div>
-      <Header/>
+      <HeaderWithContext/>
       <Switch>
-      <Route exact path ="/" component = {CourseIndex}/>
+      
       </Switch>
       </div>
   </Router>
-)
+);
+
