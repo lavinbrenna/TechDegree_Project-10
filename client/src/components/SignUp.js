@@ -5,16 +5,18 @@ import Form from './Form';
 
 export default class SignUp extends Component {
   state = {
-    name: '',
-    username: '',
+    firstName: '',
+    lastName: '',
+    emailAddress: '',
     password: '',
     errors: [],
   }
 
   render() {
     const {
-      name,
-      username,
+      firstName,
+      lastName,
+      emailAddress,
       password,
       errors,
     } = this.state;
@@ -31,24 +33,31 @@ export default class SignUp extends Component {
             elements={() => (
               <React.Fragment>
                 <input 
-                  id="name" 
-                  name="name" 
+                  id="firstName" 
+                  name="firstName" 
                   type="text"
-                  value={name} 
+                  value={ firstName } 
                   onChange={this.change} 
-                  placeholder="Name" />
+                  placeholder="First Name" />
+                 <input 
+                  id="lastName" 
+                  name="lastName" 
+                  type="text"
+                  value={ lastName } 
+                  onChange={this.change} 
+                  placeholder="Last Name" />
                 <input 
-                  id="username" 
-                  name="username" 
-                  type="text"
-                  value={username} 
+                  id="emailAddress" 
+                  name="emailAddress" 
+                  type="email"
+                  value={ emailAddress } 
                   onChange={this.change} 
-                  placeholder="User Name" />
+                  placeholder="Email Address" />
                 <input 
                   id="password" 
                   name="password"
                   type="password"
-                  value={password} 
+                  value={ password } 
                   onChange={this.change} 
                   placeholder="Password" />
               </React.Fragment>
@@ -62,12 +71,12 @@ export default class SignUp extends Component {
   }
 
   change = (event) => {
-    const name = event.target.name;
+    const firstName = event.target.firstName;
     const value = event.target.value;
 
     this.setState(() => {
       return {
-        [name]: value
+        [firstName]: value
       };
     });
   }
@@ -75,14 +84,16 @@ export default class SignUp extends Component {
   submit = () => {
     const {context}= this.props;
     const{
-      name,
-      username,
+      firstName,
+      lastName,
+      emailAddress,
       password,
     }= this.state;
 
     const user = {
-      name,
-      username,
+      firstName,
+      lastName,
+      emailAddress,
       password,
     };
     context.data.createUser(user)
@@ -90,11 +101,11 @@ export default class SignUp extends Component {
       if(errors.length){
         this.setState({errors});
       }else{
-        context.actions.signIn(username,password)
+        context.actions.signIn(emailAddress,password)
         .then(()=>{
           this.props.history.push('/courseindex');
         });
-        console.log(`${username} is successfully signed up and authenticated!`)
+        console.log(`${emailAddress} is successfully signed up and authenticated!`)
       }
     })
     .catch(err=>{
